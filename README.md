@@ -72,6 +72,9 @@ The id argument should be a string containing the id of any content-editable ele
 setHandlerByClass ( class, action ): [method] Sets the state of the JTK handler for a set of page elements.
 The class argument should be a string containing the class name of any content-editable element (i.e input, textarea etc). The action argument should specify either "enable" or "disable" depending on whether input handling for Thaana should be enabled or disabled, respectively.
 
+## Updates/History
+http://www.jawish.org/blog/plugin/tag/javascript+thaana+keyboard
+
 ## Demo
 Demo: http://www.jawish.org/blog/uploads/jtk-4.2.1-test.html
 
