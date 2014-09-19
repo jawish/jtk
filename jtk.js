@@ -1,7 +1,7 @@
 ﻿/*
- * Javascript Thaana Keyboard 4.2.1
+ * Javascript Thaana Keyboard 4.2.2
  *
- * Copyright (c) 2009 Jawish Hameed (jawish.org)
+ * Copyright (c) 2014 Jawish Hameed (jawish.org)
  * Licensed under the MIT license.
  */
 
@@ -9,6 +9,9 @@ var thaanaKeyboard = {
 	
 	// Default keyboard (used only when not explicitly declared using state)
 	defaultKeyboard: '',
+    
+    // Default class name used for hooking at initialization
+	className: 'thaanaKeyboardInput',
 	
 	// Setup Ascii Thaana -> Unicode translation matrix
 	_transFrom: 'qwertyuiop[]\\asdfghjkl;\'zxcvbnm,./QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?()',
@@ -17,27 +20,22 @@ var thaanaKeyboard = {
 			'typewriter': 'ޫޮާީޭގރމތހލ[]ިުްަެވއނކފﷲޒޑސޔޅދބށޓޯ×’“/:ޤޜޣޠޙ÷{}<>.،\"ޥޢޘޚޡ؛ޖޕޏޗޟޛޝ\\ޞ؟)('
 			},
 	
-	// Default class name used for hooking at initialization
-	_className: 'thaanaKeyboardInput',
-	
 	
 	/**
 	 * Apply input handling to elements with the special JTK class name
 	 */
 	init: function () {
-		this.setHandlerByClass(this._className, 'enable');
+		this.setHandlerByClass(this.className, 'enable');
 	},
-	
-	/**
-	 * Set key event handlers for elements with the specified id
+    
+    /**
+	 * Set key event handlers for a given element
 	 * 
-	 * @param id		String id of the element to affect
+	 * @param element	DOM Element to affect
 	 * @param action	String specifying action to take. Should be 'enable' or 'disable'.
 	 */
-	setHandlerById: function (id, action) {
-		// Get the element object
-		var elem = document.getElementById(id);
-		
+	setHandlerByElement: function (elem, action) {
+        
 		// Respond to action specified
 		switch (action) {
 			case 'enable':
@@ -52,6 +50,19 @@ var thaanaKeyboard = {
 				
 				break;
 		}
+	},
+	
+	/**
+	 * Set key event handlers for elements with the specified id
+	 * 
+	 * @param id		String id of the element to affect
+	 * @param action	String specifying action to take. Should be 'enable' or 'disable'.
+	 */
+	setHandlerById: function (id, action) {
+		// Get the element object
+		var elem = document.getElementById(id);
+		
+		this.setHandlerByElement(elem, action);
 	},
 	
 	/**
@@ -72,7 +83,7 @@ var thaanaKeyboard = {
 			// Ensure the current element is of the target class
 			if (rePat.test(elemList[n].className)) {
 				// Set handler
-				this.setHandlerById(elemList[n].id, action);
+				this.setHandlerByElement(elemList[n], action);
 			}
 		}
 	},
